@@ -12,3 +12,6 @@ A container is essentially a virtualized environment, but unlike virtual machine
 Containerization is the process of encapsulating an application and its dependencies in a container. It involves using container technologies (such as Docker) to package applications, ensuring that the application behaves consistently regardless of where it is deployed.
 
 In containerization, the environment in which the application runs is isolated from the host system and other containers. This allows for a consistent execution environment across different systems.
+
+
+# Kubernetes, also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications.
