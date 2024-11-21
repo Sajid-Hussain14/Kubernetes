@@ -16,4 +16,7 @@ In containerization, the environment in which the application runs is isolated f
 
 # Kubernetes, also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications.
 
-you can say a kind of orchestration tool
+you can say a kind of orchestration tool.
+output after setting up
+![image](https://github.com/user-attachments/assets/71c9b764-5687-4817-a2c8-d360adb4fb37)
+
