@@ -1,0 +1,59 @@
+# deploying the web application and we are going to deploy mongo express, yoiu can choose as per your requirements like from aws etc etc
+
+#copy the mongo-app.yaml and paste it here
+#and do necessary changes
+apiVersion: apps/v1
+kind: Deployment
+metadata:  #kind on class
+  name: webapp-deployment
+  labels:
+    app: webapp
+spec:
+  replicas: 1 #you can decide the number of replicas as per the requirements
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: mongo-express:latest
+        ports:
+        - containerPort: 8081 #make sure to change the port number here
+        env:
+        - name: ME_CONFIG_MONGODB_SERVER          #extra info need to provide server here as well
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-config   #details of mongo-config.yaml
+              key: mongo-url
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME 
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret   #details of secret.yaml
+              key: username
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD 
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret   #details of secret.yaml
+              key: password 
+        
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  type: NodePort
+  selector:
+    app: webapp 
+  ports:
+    - protocol: TCP
+      port: 8081 
+      targetPort: 8081 
+      nodePort: 30100
+
+# Exposes the Service on each Node's IP at a static port (the NodePort). To make the node port available, Kubernetes sets up a cluster IP address, the same as if you had requested a Service of type: ClusterIP
